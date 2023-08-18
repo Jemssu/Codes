@@ -1,0 +1,109 @@
+import javax.swing.JOptionPane;
+
+public class NetworkTelecomChecker {
+  public static void main(String[] args) {
+    // by James Nathaniel Fernandez Tan
+    boolean isContinue = true; 
+
+    while (isContinue) {
+      String cpNumber = JOptionPane.showInputDialog("Enter a Cellphone Number: ");
+
+      if (isElevenDigits(cpNumber) && isZeroNine(cpNumber)) {
+        String telecom = telecomNetwork(cpNumber); // checks the telecom provider
+        if (!telecom.equals("Unknown Telecom Network")) {
+          JOptionPane.showMessageDialog(null, "Telecom Network: " + telecom);
+          isContinue = false;
+        } else {
+          JOptionPane.showMessageDialog(null, "Cellphone Number is Invalid. \nReason: Unknown Telecom Network");  
+          int user_decision = JOptionPane.showConfirmDialog(null, "Cellphone Number is Invalid. \nWould you like to try again?", "Invalid Number", JOptionPane.YES_NO_OPTION);
+          if (user_decision != JOptionPane.YES_OPTION) {
+            isContinue = false;
+          } //end of if
+        } // end of inner if-else
+      } else {
+        int user_decision = JOptionPane.showConfirmDialog(null, "Cellphone Number is Invalid. \nWould you like to try again?", "Invalid Number", JOptionPane.YES_NO_OPTION);
+        if (user_decision != JOptionPane.YES_OPTION) {
+          isContinue = false;
+        } else {
+            isContinue = true;
+        } // end of if-else inner
+      } // end of if-else outer
+    } // end of while loop
+  } // end of main
+
+  // method that checks if the input starts with 09
+  public static boolean isZeroNine(String cpNumber) {
+    String firstTwoDigits = cpNumber.substring(0, 2);
+    if (firstTwoDigits.equals("09")) {
+        return true;
+    } else {
+        JOptionPane.showMessageDialog(null, "Cellphone Number is Invalid. \nReason: Must Start with 09!");
+        return false;
+    } // end of if-else
+  } // end of isZeroNine Method
+
+  // method that checks if the input is exactly 11 digits.
+  public static boolean isElevenDigits(String cpNumber) {
+    int numberLength = 11;
+
+    if (cpNumber.length() == 0) {
+        JOptionPane.showMessageDialog(null, "Cellphone Number is Invalid. \nReason: Empty");
+        return false;
+      } else if (cpNumber.length() == numberLength) {
+        return true;
+      } else if (cpNumber.length() > numberLength) {
+        JOptionPane.showMessageDialog(null, "Cellphone Number is Invalid. \nReason: More than 11-Digits");
+        return false;
+      } else {
+        JOptionPane.showMessageDialog(null, "Cellphone Number is Invalid. \nReason: Less than 11-Digits");
+        return false;
+      } //end of if
+  } // end of isElevenDigits method
+
+  // method that identifies the service provider
+  public static String telecomNetwork(String cpNumber) {
+    String nDigit = cpNumber.substring(2, 4);
+      switch (nDigit) {
+      case "13":
+      case "14":
+      case "20":
+      case "21":
+      case "28":
+      case "29":
+      case "30":
+        return "Smart";
+      case "08":
+      case "09":
+      case "10":
+      case "11":
+      case "12":
+      case "18":
+      case "19":
+        return "TNT";
+      case "22":
+      case "23":
+      case "32":
+      case "33":
+        return "Sun";
+      case "15":
+      case "16":
+      case "17":
+      case "25":
+      case "26":
+      case "27":
+        return "Globe";
+      case "03":
+      case "04":
+      case "05":
+      case "06":
+      case "07":
+        return "TM";
+      case "01":
+      case "02":
+      case "24":
+        return "Red";
+      default:
+        return "Unknown Telecom Network";
+      } // end of switch
+  } // end of telecomNetwork method
+} // end of class
