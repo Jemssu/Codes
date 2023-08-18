@@ -8,7 +8,7 @@ public class NetworkTelecomChecker {
     while (isContinue) {
       String cpNumber = JOptionPane.showInputDialog("Enter a Cellphone Number: ");
 
-      if (isElevenDigits(cpNumber) && isZeroNine(cpNumber)) {
+      if (isZeroNine(cpNumber) && isElevenDigits(cpNumber) ) {
         String telecom = telecomNetwork(cpNumber); // checks the telecom provider
         if (!telecom.equals("Unknown Telecom Network")) {
           JOptionPane.showMessageDialog(null, "Telecom Network: " + telecom);
